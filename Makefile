@@ -14,7 +14,8 @@ SRC = src/ft_strlen.s	\
 		src/ft_strcpy.s \
 		src/ft_strcmp.s \
 		src/ft_write.s \
-		src/ft_read.s
+		src/ft_read.s \
+		src/ft_strdup.s
 
 OBJ = $(SRC:.s=.o)
 
@@ -25,12 +26,14 @@ EXEC = bin/main_test
 all: $(LIBRARY)
 
 $(LIBRARY): $(OBJ)
+	mkdir -p lib
 	$(AR) rcs $@ $^
 
 %.o: %.s
 	$(ASM) $(CFLAGS) -o $@ $<
 
 test: $(LIBRARY)
+	mkdir -p bin
 	$(CC) -Wall -Wextra -Werror -o bin/main.o -c src/main.c
 	$(CC) -Wall -Wextra -Werror -o $(EXEC) bin/main.o $(LDFLAGS)
 
@@ -39,6 +42,7 @@ clean:
 
 fclean: clean
 	rm -f $(LIBRARY) $(EXEC)
+	rm -rf bin/ lib/
 
 re: fclean all
 

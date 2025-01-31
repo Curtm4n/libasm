@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <errno.h>
+#include <stdlib.h>
 
 extern int		ft_strlen(char *str);
 extern char		*ft_strcpy(char *dest, const char *src);
 extern int		ft_strcmp(char *s1, char *s2);
 extern ssize_t	ft_write(int fd, const void *buf, size_t count);
 extern ssize_t	ft_read(int fd, void *buf, size_t count);
+extern char		*ft_strdup(const char *s);
 
 int	main(void)
 {
@@ -78,6 +80,18 @@ int	main(void)
 	if (ret == -1)
 		perror("Erreur de ft_read");
 	printf("Retour de ft_read (fd invalide): %zd, errno: %d\n", ret, errno);
+
+	//TEST FT_STRDUP
+	printf("\n\nTESTS FT_STRDUP:\n\n");
+
+	char *dup1 = ft_strdup("Hello world!");
+	char *dup2 = ft_strdup("");
+
+	printf("Original: \"Hello world!\" | Duplicated: \"%s\"\n", dup1);
+	printf("Original: \"\" | Duplicated: \"%s\"\n", dup2);
+
+	free(dup1);
+	free(dup2);
 
 	return (0);
 }
