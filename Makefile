@@ -19,20 +19,20 @@ SRC = src/ft_strlen.s	\
 
 OBJ = $(SRC:.s=.o)
 
-LIBRARY = lib/libasm.a
+NAME = lib/libasm.a
 
 EXEC = bin/main_test
 
-all: $(LIBRARY)
+all: $(NAME)
 
-$(LIBRARY): $(OBJ)
+$(NAME): $(OBJ)
 	mkdir -p lib
 	$(AR) rcs $@ $^
 
 %.o: %.s
 	$(ASM) $(CFLAGS) -o $@ $<
 
-test: $(LIBRARY)
+test: $(NAME)
 	mkdir -p bin
 	$(CC) -Wall -Wextra -Werror -o bin/main.o -c src/main.c
 	$(CC) -Wall -Wextra -Werror -o $(EXEC) bin/main.o $(LDFLAGS)
@@ -41,11 +41,9 @@ clean:
 	rm -f $(OBJ) bin/main.o
 
 fclean: clean
-	rm -f $(LIBRARY) $(EXEC)
+	rm -f $(NAME) $(EXEC)
 	rm -rf bin/ lib/
 
 re: fclean all
 
 .PHONY: all clean fclean re test
-
-
